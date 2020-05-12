@@ -1,0 +1,8 @@
+{
+  "body": "{\"coordinates\":[40.7769099,-73.9822532], \"radius\": 100, \"experienceYears\": 1}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}
