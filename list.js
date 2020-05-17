@@ -15,13 +15,12 @@ function filterArray(array, filters) {
 }
 
 export async function main(event, context) {
-    const data = JSON.parse(event.body);
     const params = {
         TableName: process.env.tableName,
-        RadiusInMeter: data.radius || 1000,
+        RadiusInMeter: event.radius || 1000,
         CenterPoint: {
-            latitude: data.coordinates[0],
-            longitude: data.coordinates[1]
+            latitude: event.lat,
+            longitude: event.lng
         }
     };
 
@@ -31,14 +30,14 @@ export async function main(event, context) {
             content: content => {
                 const parsed = JSON.parse(content.S);
 
-                const hasCar              = data.hasCar ? parsed.hasCar === data.hasCar : true;
-                const lightHousekeeping   = data.lightHousekeeping ? parsed.lightHousekeeping === data.lightHousekeeping : true;
-                const comfortableWithPets = data.comfortableWithPets ? parsed.comfortableWithPets === data.comfortableWithPets : true;
+                const hasCar              = data.hasCar ? parsed.hasCar === event.hasCar : true;
+                const lightHousekeeping   = data.lightHousekeeping ? parsed.lightHousekeeping === event.lightHousekeeping : true;
+                const comfortableWithPets = data.comfortableWithPets ? parsed.comfortableWithPets === event.comfortableWithPets : true;
                 const mealPrep            = data.mealPrep ? parsed.mealPrep === data.mealPrep : true;
-                const helpWithHomework    = data.helpWithHomework ? parsed.helpWithHomework === data.helpWithHomework : true;
-                const travelDistance      = data.travelDistance ? parseInt(parsed.travelDistance, 10) > data.travelDistance : true;
-                const maxChildren         = data.maxChildren ? parseInt(parsed.maxChildren,10) > data.maxChildren : true;
-                const experienceYears     = data.experienceYears ? parseInt(parsed.experienceYears,10) >= data.experienceYears : true;
+                const helpWithHomework    = data.helpWithHomework ? parsed.helpWithHomework === event.helpWithHomework : true;
+                const travelDistance      = data.travelDistance ? parseInt(parsed.travelDistance, 10) > event.travelDistance : true;
+                const maxChildren         = data.maxChildren ? parseInt(parsed.maxChildren,10) > event.maxChildren : true;
+                const experienceYears     = data.experienceYears ? parseInt(parsed.experienceYears,10) >= event.experienceYears : true;
 
                 return hasCar && lightHousekeeping && comfortableWithPets && mealPrep && helpWithHomework && travelDistance && maxChildren && experienceYears;
             },

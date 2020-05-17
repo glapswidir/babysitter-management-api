@@ -83,3 +83,6 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+          request:
+            template:
+              application/json: '{ "lat" : "$input.params(''lat'')", "lng" : "$input.params(''lng'')", "rad" : "$input.params(''rad'')", "hasCar" : "$input.params(''hasCar'')", , "lightHousekeeping" : "$input.params(''lightHousekeeping'')"  }'

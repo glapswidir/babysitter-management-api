@@ -19,7 +19,8 @@
     "serverless-offline": "^5.3.3"
   },
   "dependencies": {
-    "uuid": "^7.0.3",
-    "dynamodb-geo": "^0.4.0"
+    "dynamodb-geo": "^0.4.0",
+    "expo-secure-store": "^8.1.0",
+    "uuid": "^7.0.3"
   }
 }
