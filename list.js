@@ -15,12 +15,13 @@ function filterArray(array, filters) {
 }
 
 export async function main(event, context) {
+    const {queryStringParameters} = event;
     const params = {
         TableName: process.env.tableName,
-        RadiusInMeter: event.radius || 1000,
+        RadiusInMeter: queryStringParameters.radius || 1000,
         CenterPoint: {
-            latitude: event.lat,
-            longitude: event.lng
+            latitude: parseFloat(queryStringParameters.lat),
+            longitude: parseFloat(queryStringParameters.lng)
         }
     };
 
@@ -30,14 +31,14 @@ export async function main(event, context) {
             content: content => {
                 const parsed = JSON.parse(content.S);
 
-                const hasCar              = data.hasCar ? parsed.hasCar === event.hasCar : true;
-                const lightHousekeeping   = data.lightHousekeeping ? parsed.lightHousekeeping === event.lightHousekeeping : true;
-                const comfortableWithPets = data.comfortableWithPets ? parsed.comfortableWithPets === event.comfortableWithPets : true;
-                const mealPrep            = data.mealPrep ? parsed.mealPrep === data.mealPrep : true;
-                const helpWithHomework    = data.helpWithHomework ? parsed.helpWithHomework === event.helpWithHomework : true;
-                const travelDistance      = data.travelDistance ? parseInt(parsed.travelDistance, 10) > event.travelDistance : true;
-                const maxChildren         = data.maxChildren ? parseInt(parsed.maxChildren,10) > event.maxChildren : true;
-                const experienceYears     = data.experienceYears ? parseInt(parsed.experienceYears,10) >= event.experienceYears : true;
+                const hasCar              = queryStringParameters.hasCar ? parsed.hasCar === queryStringParameters.hasCar : true;
+                const lightHousekeeping   = queryStringParameters.lightHousekeeping ? parsed.lightHousekeeping === queryStringParameters.lightHousekeeping : true;
+                const comfortableWithPets = queryStringParameters.comfortableWithPets ? parsed.comfortableWithPets === queryStringParameters.comfortableWithPets : true;
+                const mealPrep            = queryStringParameters.mealPrep ? parsed.mealPrep === queryStringParameters.mealPrep : true;
+                const helpWithHomework    = queryStringParameters.helpWithHomework ? parsed.helpWithHomework === queryStringParameters.helpWithHomework : true;
+                const travelDistance      = queryStringParameters.travelDistance ? parseInt(parsed.travelDistance, 10) > queryStringParameters.travelDistance : true;
+                const maxChildren         = queryStringParameters.maxChildren ? parseInt(parsed.maxChildren,10) > queryStringParameters.maxChildren : true;
+                const experienceYears     = queryStringParameters.experienceYears ? parseInt(parsed.experienceYears,10) >= queryStringParameters.experienceYears : true;
 
                 return hasCar && lightHousekeeping && comfortableWithPets && mealPrep && helpWithHomework && travelDistance && maxChildren && experienceYears;
             },

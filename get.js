@@ -6,6 +6,13 @@ export async function main(event, context) {
         TableName: process.env.tableName,
         Key: {
             babysitterId: event.pathParameters.id
+        },
+        FilterExpression: "#babysitterId = :id",
+        ExpressionAttributeNames:{
+            "#babysitterId": "babysitterId"
+        },
+        ExpressionAttributeValues: {
+            ":id": event.pathParameters.id
         }
     };
 

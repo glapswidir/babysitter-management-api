@@ -1,5 +1,5 @@
 {
-  "body": "{\"coordinates\":[40.7769099,-73.9822532], \"radius\": 100, \"experienceYears\": 1}",
+  "queryStringParameters": {"lat":"40.7769099","lng":"-73.9822532"},
   "requestContext": {
     "identity": {
       "cognitoIdentityId": "USER-SUB-1234"

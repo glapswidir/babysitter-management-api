@@ -1,11 +1,11 @@
 {
-  "body": "{\"coordinates\":[40.7769099,-73.9822532], \"content\": {\"travelDistance\": \"5\",\"maxChildren\": \"1\",\"experienceYears\": \"1\",\"hasCar\": false,\"hasDriversLicence\": false,\"lightHousekeeping\": false,\"comfortableWithPets\": false,\"mealPrep\": false,\"specialNeedsCare\": false,\"helpWithHomework\": false,\"ageGroups\": {\"0-12\": true,\"1-3\": true,\"3-5\": false,\"5-12\": false,\"12+\": true},\"rates\": {\"standard\": \"100\",\"eveningRate\": \"120\",\"overnightRate\": \"300\",\"publicHolidayRate\": \"150\",\"extraCharge\": \"10\",\"noticeAmount\": \"50\"},\"policeCheck\": {\"state\": \" \",\"number\": \" \",\"exp\": \" \"},\"firstAidCertificate\": {\"state\": \" \",\"number\": \" \",\"exp\": \" \"},\"wwcc\": {\"state\": \" \",\"number\": \" \",\"exp\": \" \"},\"personalInfo\": {\"firstName\": \" \",\"lastName\": \" \",\"email\": \" \",\"username\": \" \",\"createdAt\": \" \",\"about\": \" \",\"avatar\": \" \",\"dob\": \" \"}}}",
+  "body": "{\"coordinates\":[-33.8235063,151.2339505], \"content\": {\"travelDistance\": \"5\",\"maxChildren\": \"1\",\"experienceYears\": \"1\",\"hasCar\": false,\"hasDriversLicence\": false,\"lightHousekeeping\": false,\"comfortableWithPets\": false,\"mealPrep\": false,\"specialNeedsCare\": false,\"helpWithHomework\": false,\"ageGroups\": {\"0-12\": true,\"1-3\": true,\"3-5\": false,\"5-12\": false,\"12+\": true},\"rates\": {\"standard\": \"100\",\"eveningRate\": \"120\",\"overnightRate\": \"300\",\"publicHolidayRate\": \"150\",\"extraCharge\": \"10\",\"noticeAmount\": \"50\"},\"policeCheck\": {\"state\": \" \",\"number\": \" \",\"exp\": \" \"},\"firstAidCertificate\": {\"state\": \" \",\"number\": \" \",\"exp\": \" \"},\"wwcc\": {\"state\": \" \",\"number\": \" \",\"exp\": \" \"},\"personalInfo\": {\"firstName\": \"Magdalena\",\"lastName\": \"Nowinska 2\",\"email\": \" \",\"username\": \" \",\"createdAt\": \" \",\"about\": \" \",\"avatar\": \" \",\"dob\": \" \"}}}",
   "pathParameters": {
     "id": "dd7fa8c8-9c92-43b1-bcc4-328b96789fd2"
   },
   "requestContext": {
     "identity": {
-      "cognitoIdentityId": "USER-SUB-1234"
+      "cognitoIdentityId": "USER-SUB-12345"
     }
   }
 }
