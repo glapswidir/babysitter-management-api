@@ -1,5 +1,6 @@
 {
+  "queryStringParameters": {"type":"Parent"},
   "pathParameters": {
-    "id": "ap-southeast-2:685eb624-9cc5-428b-983c-1618aef6ad36"
+    "id": "b570541a-20e4-4332-9ad5-dd66aea40491"
   }
 }

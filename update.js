@@ -3,8 +3,9 @@ import { success, failure } from "./libs/response-lib";
 
 export async function main(event, context) {
     const uuid = require('uuid');
+    const date = new Date();
     const data = JSON.parse(event.body);
-    const params = {
+    const createParams = {
         TableName: process.env.tableName,
         RangeKeyValue: {S: uuid.v4()},
         GeoPoint: {
@@ -13,18 +14,18 @@ export async function main(event, context) {
         },
         PutItemInput: {
             Item: {
-                babysitterId: { S: event.requestContext.identity.cognitoIdentityId },
+                updatedAt: {S: date.toISOString()},
+                createdAt: {S: data.createdAt},
+                type: {S: data.type},
+                babysitterId: { S: data.id },
                 content: {S: JSON.stringify(data.content) },
             }
         }
     };
 
-    const deleteParams = {
+    const removeParams = {
         TableName: process.env.tableName,
-        RangeKeyValue: {S: event.pathParameters.id},
-        Key: {
-            babysitterId: event.requestContext.identity.cognitoIdentityId,
-        },
+        RangeKeyValue: {S: data.rangeKey},
         GeoPoint: {
             latitude: data.coordinates[0],
             longitude: data.coordinates[1]
@@ -32,10 +33,11 @@ export async function main(event, context) {
     };
 
     try {
-        const remove = await dynamoDbLib.callGeo("deletePoint", deleteParams, true);
-        const create = await dynamoDbLib.callGeo("putPoint", params, true);
+        const remove = await dynamoDbLib.callGeo("deletePoint", removeParams, true);
+        const create = await dynamoDbLib.callGeo("putPoint", createParams, true);
 
         if (!remove) {
+            console.log(remove);
             return failure({status: false, error: "There was a problem with updating you information."});
         }
 

@@ -1,5 +1,5 @@
 {
-  "queryStringParameters": {"lat":"40.7769099","lng":"-73.9822532"},
+  "queryStringParameters": {"lat":"-33.82399881389728","lng":"151.23468778724668", "dateStart": "2020-06-29T08:30:00.000Z", "dateStop": "2020-06-29T12:30:50.000Z"},
   "requestContext": {
     "identity": {
       "cognitoIdentityId": "USER-SUB-1234"

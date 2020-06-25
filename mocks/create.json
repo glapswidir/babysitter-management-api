@@ -5,7 +5,7 @@
   },
   "requestContext": {
     "identity": {
-      "cognitoIdentityId": "USER-SUB-12345"
+      "cognitoIdentityId": "ap-southeast-2:685eb624-9cc5-428b-983c-1618aef6ad36"
     }
   }
 }

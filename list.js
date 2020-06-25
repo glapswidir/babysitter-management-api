@@ -1,7 +1,6 @@
 import * as dynamoDbLib from "./libs/dynamodb-lib";
 import { success, failure } from "./libs/response-lib";
 
-
 function filterArray(array, filters) {
     const filterKeys = Object.keys(filters);
     return array.filter(item => {
@@ -14,6 +13,26 @@ function filterArray(array, filters) {
     });
 }
 
+function available(start, stop, availability) {
+    const startDateTime = start.split(/T|\:/);
+    const stopDateTime  = stop.split(/T|\:/);
+
+    if (availability === undefined) {
+        return false;
+    }
+
+    const isAvailable = availability.filter(item => {
+        if (item.date === startDateTime[0]) {
+            return item.options._allDay || item.options._day || parseInt(startDateTime[1]) <= parseInt(item.options._selectedStart);
+        }
+        if (item.date === stopDateTime[0]) {
+            return item.options._allDay || item.options._day || parseInt(stopDateTime[1]) <= parseInt(item.options._selectedEnd);
+        }
+    });
+
+    return isAvailable.length === 2;
+}
+
 export async function main(event, context) {
     const {queryStringParameters} = event;
     const params = {
@@ -22,6 +41,13 @@ export async function main(event, context) {
         CenterPoint: {
             latitude: parseFloat(queryStringParameters.lat),
             longitude: parseFloat(queryStringParameters.lng)
+        },
+        FilterExpression: "#type = :type",
+        ExpressionAttributeNames:{
+            "#type": "type"
+        },
+        ExpressionAttributeValues: {
+            ":type": "Babysitter"
         }
     };
 
@@ -30,24 +56,27 @@ export async function main(event, context) {
         const filters  = {
             content: content => {
                 const parsed = JSON.parse(content.S);
+                const {hasCar, lightHousekeeping , comfortableWithPets, mealPrep, helpWithHomework, travelDistance, maxChildren, experienceYears, dateStart, dateStop} = queryStringParameters;
 
-                const hasCar              = queryStringParameters.hasCar ? parsed.hasCar === queryStringParameters.hasCar : true;
-                const lightHousekeeping   = queryStringParameters.lightHousekeeping ? parsed.lightHousekeeping === queryStringParameters.lightHousekeeping : true;
-                const comfortableWithPets = queryStringParameters.comfortableWithPets ? parsed.comfortableWithPets === queryStringParameters.comfortableWithPets : true;
-                const mealPrep            = queryStringParameters.mealPrep ? parsed.mealPrep === queryStringParameters.mealPrep : true;
-                const helpWithHomework    = queryStringParameters.helpWithHomework ? parsed.helpWithHomework === queryStringParameters.helpWithHomework : true;
-                const travelDistance      = queryStringParameters.travelDistance ? parseInt(parsed.travelDistance, 10) > queryStringParameters.travelDistance : true;
-                const maxChildren         = queryStringParameters.maxChildren ? parseInt(parsed.maxChildren,10) > queryStringParameters.maxChildren : true;
-                const experienceYears     = queryStringParameters.experienceYears ? parseInt(parsed.experienceYears,10) >= queryStringParameters.experienceYears : true;
+                const car          = hasCar ? parsed.hasCar === hasCar : true;
+                const houseKeeping = lightHousekeeping ? parsed.lightHousekeeping === lightHousekeeping : true;
+                const pets         = comfortableWithPets ? parsed.comfortableWithPets === comfortableWithPets : true;
+                const meals        = mealPrep ? parsed.mealPrep === mealPrep : true;
+                const homework     = helpWithHomework ? parsed.helpWithHomework === helpWithHomework : true;
+                const travel       = travelDistance ? parseInt(parsed.travelDistance, 10) > travelDistance : true;
+                const max          = maxChildren ? parseInt(parsed.maxChildren,10) > maxChildren : true;
+                const experience   = experienceYears ? parseInt(parsed.experienceYears,10) >= experienceYears : true;
+                const isAvailable  = (dateStart && dateStop && parsed.available !== null) ? available(dateStart, dateStop, parsed.available) : true;
 
-                return hasCar && lightHousekeeping && comfortableWithPets && mealPrep && helpWithHomework && travelDistance && maxChildren && experienceYears;
-            },
+                return car && houseKeeping && pets && meals && homework && travel && max && experience && isAvailable;
+            }
         };
 
         const items = filterArray(result, filters);
 
         return success(items);
     } catch (e) {
+        console.log(e);
         return failure({ status: false });
     }
 }

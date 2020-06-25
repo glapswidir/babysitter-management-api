@@ -32,6 +32,7 @@ provider:
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
+        - dynamodb:updatePoint
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:ap-southeast-2:*:*"
 
@@ -62,12 +63,12 @@ functions:
 
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
-    # - path: url path is /notes/{id}
+    # - path: url path is /babysitter/{id}
     # - method: PUT request
     handler: update.main
     events:
       - http:
-          path: babysitter/{id}
+          path: babysitter
           method: put
           cors: true
           authorizer: aws_iam
