@@ -1,5 +1,16 @@
 {
-  "queryStringParameters": {"lat":"-33.82399881389728","lng":"151.23468778724668", "dateStart": "2020-06-29T08:30:00.000Z", "dateStop": "2020-06-29T12:30:50.000Z"},
+  "queryStringParameters": {
+    "dateStart": "2020-11-03T21:00:35.3535+11:00",
+    "dateStop": "2020-11-03T22:00:35.3535+11:00",
+    "experienceYears": "8",
+    "homeworkHelp": "false",
+    "housekeeping": "false",
+    "lat": "-33.828260175605465",
+    "lng": "151.23391013592482",
+    "mealPrep": "false",
+    "ownsCar": "true",
+    "specialNeedsCare": "false"
+  },
   "requestContext": {
     "identity": {
       "cognitoIdentityId": "USER-SUB-1234"

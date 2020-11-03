@@ -34,6 +34,7 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:updatePoint
         - dynamodb:DeleteItem
+        - dynamodb:deletePoint
       Resource: "arn:aws:dynamodb:ap-southeast-2:*:*"
 
 functions:
@@ -86,4 +87,4 @@ functions:
           authorizer: aws_iam
           request:
             template:
-              application/json: '{ "lat" : "$input.params(''lat'')", "lng" : "$input.params(''lng'')", "rad" : "$input.params(''rad'')", "hasCar" : "$input.params(''hasCar'')", , "lightHousekeeping" : "$input.params(''lightHousekeeping'')"  }'
+              application/json: '{ "dateStart" : "$input.params(''dateStart'')", "dateStop" : "$input.params(''dateStop'')", "lat" : "$input.params(''lat'')", "lng" : "$input.params(''lng'')", "rad" : "$input.params(''rad'')", "hasCar" : "$input.params(''hasCar'')", , "lightHousekeeping" : "$input.params(''lightHousekeeping'')"  }'

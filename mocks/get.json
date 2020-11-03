@@ -1,5 +1,5 @@
 {
-  "queryStringParameters": {"type":"Parent"},
+  "queryStringParameters": {},
   "pathParameters": {
     "id": "b570541a-20e4-4332-9ad5-dd66aea40491"
   }

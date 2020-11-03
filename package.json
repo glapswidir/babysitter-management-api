@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "dynamodb-geo": "^0.4.0",
-    "expo-secure-store": "^8.1.0",
-    "uuid": "^7.0.3"
+    "uuid": "^7.0.3",
+    "lodash": "^4.17.15"
   }
 }
